@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  router:
+    build:
+      context: .
+      dockerfile: Containerfile
+    ports:
+      - "8001:8001"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PORT=8001
+      - LOG_LEVEL=INFO
+      - PYTHONPATH=/app:/app/src
+    restart: unless-stopped
+    container_name: podman-router-instance
+    volumes:
+      - .:/app
+      - ./data:/app/data
+      # Mount Podman socket from host - path varies by OS
+      - ${PODMAN_SOCKET:-/run/podman/podman.sock}:/run/podman/podman.sock
+    privileged: true  # Required for socket access

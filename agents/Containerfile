@@ -1,0 +1,32 @@
+# Use Python 3.12 slim as base image
+FROM python:3.12-slim
+
+# Set working directory
+WORKDIR /app
+
+# Add metadata labels
+LABEL org.opencontainers.image.title="Sample Agent"
+LABEL org.opencontainers.image.description="A sample agent for testing and demonstration"
+LABEL org.opencontainers.image.version="1.0.0"
+LABEL capabilities="A sample agent that can process messages and respond"
+
+# Install UV package manager and create virtual environment
+RUN pip install uv
+RUN uv venv /app/venv
+ENV PATH="/app/venv/bin:$PATH"
+
+# Copy project files
+COPY pyproject.toml .
+COPY agent.py .
+
+ENV PYTHONPATH=/usr/local/lib/python3.12/site-packages:/app
+
+# Install dependencies using UV
+RUN uv pip install --system acp-sdk
+RUN uv pip install --system -e .
+
+# Expose the port
+EXPOSE 8000
+
+# Run the agent
+CMD ["python", "agent.py"] 

@@ -1,0 +1,14 @@
+cleaversion: '3'
+
+services:
+  agent:
+    build:
+      context: .
+      dockerfile: Containerfile
+    ports:
+      - "8080:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PORT=8000
+    restart: unless-stopped
+    container_name: podman-agent-instance 
