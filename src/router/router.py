@@ -1,18 +1,12 @@
-import asyncio
-import httpx
 import json
 import logging
 import os
 import sys
 from collections.abc import AsyncGenerator
-from typing import Optional
-from datetime import datetime
 
 from acp_sdk.models import Message, MessagePart
 from acp_sdk.server import Context, RunYield, RunYieldResume, Server
 from discovery.podman_manager import PodmanManager
-from contextlib import asynccontextmanager
-from fastapi import FastAPI
 
 # Get log level from environment variable or default to WARNING
 log_level = os.environ.get('LOG_LEVEL', 'WARNING').upper()

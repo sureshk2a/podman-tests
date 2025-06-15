@@ -112,7 +112,7 @@ class PodmanManager:
                 ports = network_settings.get("Ports", {})
                 networks = network_settings.get("Networks", {})
                 
-                # Format container network information
+                # Format container network information for agent discovery
                 container_info = {
                     "container_id": container_id,
                     "name": container.get("Names", [""])[0],

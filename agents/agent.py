@@ -9,7 +9,7 @@ server = Server()
 
 @server.agent(name="sample_agent", description="A sample agent")
 async def agent(input: list[Message], context: Context) -> AsyncGenerator[RunYield, RunYieldResume]:
-    """Agent"""
+    """Agent that receives a message and returns a message"""
     print(f"Agent received message: {input}")
     for message in input:
         await asyncio.sleep(0.5)
